@@ -1,0 +1,32 @@
+<div class="main-content">
+  <table class="table">
+<div *ngFor="let book of books | paginate: { itemsPerPage: tableSize, currentPage: page, totalItems: total };let i = index">
+  <div class="row">
+    <div class="card column">
+      <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+        <img
+          src={{book.image}}
+          class="img-fluid"
+        />
+        <a href="#!">
+          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+        </a>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{book.title}}</h5>
+        <p class="card-text">
+          {{book.subtitle}}
+        </p>
+        <a href="#!" class="btn btn-primary">Button</a>
+      </div>
+    </div>
+  </div>
+</div>
+<pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+    </pagination-controls>
+  </table>
+</div>
