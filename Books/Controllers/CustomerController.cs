@@ -24,7 +24,7 @@ namespace Books.Controllers
 
         }
 
-       // [Authorize]
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GetCustomerDto>>> GetCustomers()
         {

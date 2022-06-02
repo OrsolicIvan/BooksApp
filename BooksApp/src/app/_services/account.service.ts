@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-
 import { Injectable } from "@angular/core";
 import { Customer } from "app/_models/customer";
 import { ReplaySubject } from "rxjs";
@@ -16,6 +15,10 @@ export class AccountService {
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private httpClient: HttpClient){}
+
+  login(model:any){
+    return this.httpClient.post(this.baseUrl + 'Account/login', model);
+  }
 
   register(model: any){
     return this.httpClient.post(this.baseUrl + 'Account/register', model).pipe(

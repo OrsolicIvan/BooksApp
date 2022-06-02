@@ -1,7 +1,10 @@
 ﻿using Books.Interfaces;
 using Books.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Books.Data
 {
@@ -23,7 +26,13 @@ namespace Books.Data
             return _context.Set<T>().ToList();
         }
 
-        public T GetById(int id)
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        {
+            return this._context.Set<T>()
+                .Where(expression).AsNoTracking();
+        }
+
+        public T GetAuthorById(int id)
         {
             return _context.Set<T>().Find(id);
         }

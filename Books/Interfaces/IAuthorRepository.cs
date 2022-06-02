@@ -6,7 +6,9 @@ namespace Books.Interfaces
 {
     public interface IAuthorRepository : IGenericRepository<Author>
     {
-        IEnumerable<Author >GetAllAuthors(int count);
-
+        IEnumerable<Author> GetAll();
+        Task<Author> GetAuthorsById(int id);
+        void DeleteAuthor(Author author);
+        void UpdateAuthor(Author author);
     }
 }

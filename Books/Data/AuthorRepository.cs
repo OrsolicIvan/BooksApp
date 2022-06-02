@@ -1,5 +1,9 @@
-﻿using Books.Interfaces;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Books.Dto;
+using Books.Interfaces;
 using Books.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +13,32 @@ namespace Books.Data
 {
     public class AuthorRepository : GenericRepository<Author>, IAuthorRepository
     {
+        private readonly IMapper _mapper;
         public AuthorRepository(DataContext context) : base(context)
         {
+             
+        }
+       
+        public async Task<ActionResult<IEnumerable<GetAuthorDto>>> GetAllAuthors()
+        {
+
+            return await _context.AuthorInfo.ProjectTo<GetAuthorDto>(_mapper.ConfigurationProvider).ToListAsync();
 
         }
-        public IEnumerable<Author> GetAllAuthors(int count)
+
+        public async Task<Author> GetAuthorsById(int id)
         {
-            return _context.AuthorInfo.OrderByDescending(d => d.AuthorId).Take(count).ToList();
+            return await FindByCondition(d => d.AuthorId.Equals(id))
+                .FirstOrDefaultAsync();
+        }
+
+        public void DeleteAuthor(Author author)
+        {
+            Remove(author);
+        }
+        public void UpdateAuthor(Author author)
+        {
+            Update(author);
         }
 
 

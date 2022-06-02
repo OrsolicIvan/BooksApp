@@ -3,9 +3,9 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
 import { AccountService } from 'app/_services/account.service';
+
+
 
 
 @Component({
@@ -20,8 +20,10 @@ export class NavbarComponent implements OnInit {
       mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
+    loggedIn: boolean;
+    model: any = {};
 
-    constructor(location: Location,  private element: ElementRef, private router: Router,public dialog: MatDialog, public accountService: AccountService) {
+    constructor(location: Location,  private element: ElementRef, private router: Router,public dialog: MatDialog, public accountService: AccountService ) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -128,10 +130,16 @@ export class NavbarComponent implements OnInit {
       }
       return 'Dashboard';
     }
-    openDialog() {
-        this.dialog.open(RegisterComponent);
+    login(){
+        this.accountService.login(this.model).subscribe(response => {
+          console.log(response);
+          this.loggedIn = true;
+        }, error => {
+          console.log(error);
+        })
       }
-    openDialog2() {
-        this.dialog.open(LoginComponent);
+    
+      logout() {
+        this.loggedIn = false;
       }
 }

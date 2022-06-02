@@ -14,7 +14,9 @@ namespace Books.Dto
             CreateMap<Author, AuthorDto>();
             CreateMap<AuthorDto, Author>();
             CreateMap<Customer, GetCustomerDto>().ReverseMap();
-            
+            CreateMap<AddAuthorDto, Author>().ReverseMap();
+            CreateMap<GetAuthorDto, Author>().ReverseMap();
+            CreateMap<AuthorUpdateDto, Author>().ReverseMap();  
         }
 
     }
